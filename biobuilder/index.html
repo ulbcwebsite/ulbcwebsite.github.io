@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Bio Builder - U.L.B.C</title>
+  <link rel="stylesheet" href="/global.css">
+</head>
+
+<body>
+  <script type="module" src="/navbar.js"></script>
+  <div style="display:none;" id="main">
+    <h1>Bio Builder</h1>
+    <h2>Write away!</h2>
+    <p id="wordCount">Words: 0</p>
+    <p id="charCount">Characters: 0</p>
+    <small style="font-size:1.01em;">Tip: Markdown is supported! <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Click here</a> for a basic guide.</small><br>
+    <small style="color:gray;font-size:0.75em;" id="saveIndic"></small><br>
+    <textarea style="width:100%;min-height:250px;height:max-content;font-family:'Open Sans', sans-serif, monospace;" placeholder="Write something!"></textarea>
+  </div>
+  <div style="text-align:center;display:none;" id="loggedout">
+    <h1>Please Login</h1>
+    <h2>To write your Bio, please sign in or join.</h2>
+  </div>
+</body>
+
+</html>

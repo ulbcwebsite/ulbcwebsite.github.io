@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Website Ideas - U.L.B.C</title>
+  <link rel="stylesheet" href="/global.css">
+</head>
+
+<body>
+  <script>var theusersemailfr</script>
+  <script type="module" src="/navbar.js"></script>
+  <div style="display:none;" id="main">
+    <h1>Website Ideas/Suggestions</h1>
+    <h2>If you have any ideas or suggestions for the website, type it here and the devs will be notified.</h2>
+    <textarea style="width:100%;min-height:250px;height:max-content;font-family:'Open Sans', sans-serif, monospace;" placeholder="Write your suggestion"></textarea>
+    <button onclick="submitSug(this)">Submit</button>
+    <script>
+      const url = "https://script.google.com/macros/s/AKfycbyrnT0B6Awtc4Kjn762-58IYH2C4KKM1orhTlDh-oj-evSI3y5Koc9LH1hFzDqy_XAc/exec"
+      function submitSug(submitBtn) {
+        submitBtn.disabled=true
+        submitBtn.innerText="Loading..."
+        fetch(url + "?q=" + JSON.stringify([
+          "boston2029@outlook.com",
+          "New ULBC Website Suggestion",
+          `${theusersemailfr} suggested something on the new website:
+
+${document.querySelector("textarea").value}`
+        ])).then(() => {
+          alert("Feedback received! Thank you.")
+          submitBtn.removeAttribute("disabled")
+          submitBtn.innerText="Submit"
+        });
+      }
+    </script>
+  </div>
+  <div style="text-align:center;display:none;" id="loggedout">
+    <h1>Please Login</h1>
+    <h2>In order to make a website suggestion, you must be a member.</h2>
+  </div>
+</body>
+
+</html>
