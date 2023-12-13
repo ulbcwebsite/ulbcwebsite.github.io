@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Account Settings - U.L.B.C</title>
+  <link rel="stylesheet" href="/global.css">
+  <style>
+    a {color:black;text-decoration:none;}
+  </style>
+</head>
+
+<body>
+  <script type="module" src="/navbar.js"></script>
+  <div style="margin-top:10px;width:80%;height:calc(100%-92px);position:absolute;left:50%;transform:translate(-50%,0);display:flex;flex-direction:row;">
+    <div style="width:20%;height:100%;display:flex;flex-direction:column;gap:10px;text-align:left;">
+      <div style="color:gray;">Tabs</div>
+      <a href="#basicSettings">Basic Settings</a>
+      <a href="#">Advanced Settings</a>
+      <a href="#">Danger Zone</a>
+    </div>
+    <div style="width:80%;height:100%;overflow-y:scroll;">
+      <h1 id="basicSettings">Basic Settings</h1>
+      <label style="display:block;">Change Email</label>
+      <input type="text" placeholder="john@example.com"><button>Change</button><br>
+      
+    </div>
+  </div>
+</body>
+
+</html>
