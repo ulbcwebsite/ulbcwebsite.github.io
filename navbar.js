@@ -1,4 +1,4 @@
-const ANNOUNCEMENT = "IMPORTANT: Our hosting service will likely change URLs to end in <span style='font-family:monospace'>.replit.app</span> by January 1st. For more information <a style='color:white' href='https://blog.replit.com/hosting-changes' target='_blank'>click here</a>."
+const ANNOUNCEMENT = "NOTICE: Due to multiple issues with our hosting provider, ulbc.repl.co is down! Please migrate to ulbcwebsite.github.io until further notice."
 
 let navbar = document.createElement('div')
 let banner = document.createElement('div')
