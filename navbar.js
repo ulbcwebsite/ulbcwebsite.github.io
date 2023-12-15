@@ -146,7 +146,7 @@ switch (page) {
     let firstTimeLooking=true
     onValue(ref(db, "users/"+location.href.split("?")[1]), (snapshot) => {
       if (snapshot.exists()) {
-        if (firstTimeLooking&&auth.currentUser.uid!=location.href.split("?")[1]) {
+        if (firstTimeLooking&&auth.currentUser?.uid!=location.href.split("?")[1]) {
           firstTimeLooking=false
           set(ref(db, "users/"+location.href.split("?")[1]+"/views"), (snapshot.val().views||0)+1)
         }
