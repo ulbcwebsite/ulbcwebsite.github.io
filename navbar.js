@@ -20,7 +20,7 @@ const navigationElements = [
     link: "/biobuilder"
   },
   {
-    text: "Bio Chat",
+    text: "Join Google Chat",
     link: "/chat"
   },
   {
