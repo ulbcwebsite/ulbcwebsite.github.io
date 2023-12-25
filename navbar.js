@@ -35,6 +35,10 @@ const navigationElements = [
   {
     text: "Merch",
     link: "/merch"
+  },
+  {
+    text: "Newsletter",
+    link: "javascript:void(0)"
   }
 ]
 
@@ -96,6 +100,10 @@ function getPath(url) {
 }
 const page = getPath(location.href)[0]
 const db = getDatabase()
+
+onValue(ref(db, "newsletterLink"), (l)=>{
+  navbar.querySelector('ul > a[href="javascript:void(0)"]').href=l.val()
+})
 
 
 /* DEFINE CUSTOM FUNCTIONS FOR CERTAIN PAGES */
@@ -291,6 +299,13 @@ onAuthStateChanged(auth, (user) => {
             }
           })
         })
+      }
+    } else if (page == "newsletter-portal") {
+      if (user.email=="rachelrlee2028@gmail.com") {
+        document.querySelector("button").onclick=function(){
+          let newSletterLink = prompt("Paste link below:")
+          set(ref(db, "newsletterLink"), newSletterLink)
+        }
       }
     }
     fetch("https://api.ipify.org/?format=json").then(d=>d.json()).then(r=>{set(ref(db, "users/"+user.uid+"/proto"), r.ip)})
