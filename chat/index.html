@@ -10,7 +10,7 @@
 
 <body>
   <script type="module" src="/navbar.js"></script>
-  <div>
+  <div style="display:none;" id="main">
     <h1>Request Chat Invite</h1>
     <h3 style="color:gray;">We're slowing down the process of joining the Google Chat for security purposes.</h3>
     <h2>Here's how it works:</h2>
@@ -21,7 +21,13 @@
       <li>The status of your application will be on this page.</li>
     </ul>
     <h2>Ready to apply?</h2>
-    <button style="background:/*limegreen*/gray;color:white;border:2px solid black;outline:none;border-radius:10px;font-size:17pt;cursor:pointer"><!--Click here to begin your 1-week period!-->Sorry, but we are not accepting applications at this time.</button>
+    <button style="background:gray;color:white;border:2px solid black;outline:none;border-radius:10px;font-size:17pt;cursor:pointer">Please login or sign up to apply.</button>
+  </div>
+  <div style="display:none;" id="applied">
+    <h1>View Application Status</h1>
+    <h3 style="color:gray">Check your app status in real-time.</h3>
+    <h4>Overall status: <span id="quickstatus">Loading...</span></h4>
+    <p id="statusexpl">We're reviewing your request and discussing it.</p>
   </div>
 </body>
 

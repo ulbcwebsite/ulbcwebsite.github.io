@@ -5,6 +5,7 @@ let banner = document.createElement('div')
 
 //fetch("https://api.ipify.org/?format=json").then(d=>d.json()).then(a=>{if(a.ip!=atob("MTk5LjE4MC4xMjEuMTA4")){document.body.innerHTML=`<div style="text-align:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);"><h1>HEY...</h1><h2>Whatcha doin' here? This is still under development.</h2></div>`}})
 
+import confetti from 'https://cdn.skypack.dev/canvas-confetti';
 
 const navigationElements = [
   {
@@ -216,6 +217,38 @@ onAuthStateChanged(auth, (user) => {
         document.body.insertAdjacentHTML('beforeend', r.split("<!-- Begin -->")[1].split("<!-- End -->")[0])
         document.body.style.background="linear-gradient(to right, #030394, #010161)"
       })
+    } else if (page == "chat") {
+      onValue(ref(db, "users/"+user.uid+"/chatApp/begin"), (appbeg) => {
+       if (!appbeg.exists()) {
+         document.querySelector("button").innerText="Click here to begin your 1-week period!"
+         document.querySelector("button").style.background="limegreen"
+         document.querySelector("button").onclick=function(){
+           // send email
+
+           fetch("https://ulbc.repl.co").then(() => {
+             // do confetti lol
+             for (let i=0;i<10;i++) {
+               confetti()
+             }
+             set(ref(db, "users/"+user.uid+"/chatApp/begin"), Math.round(new Date().getTime()/1000)).then(() => {
+               setTimeout(function(){location.reload()}, 3000)
+             })
+           })
+         }
+       } else {
+         document.querySelector("div#main").style.display="none"
+         document.querySelector("div#applied").style.display="block"
+         onValue(ref(db, "users/"+user.uid+"/chatApp"), (ca) => {
+           if ((ca.val().begin+604800)<(new Date().getTime()/1000)) {
+             document.getElementById("quickstatus").innerText=ca.val().qs||"Not available"
+             document.getElementById("statusexpl").innerText=ca.val().expl||"Explanation not available"
+           } else {
+             document.getElementById("quickstatus").innerText=Math.ceil(((ca.val().begin+604800)-(new Date().getTime()/1000))/(24 * 60 * 60))+" days left to write Bio"
+             document.getElementById("statusexpl").innerText="We won't begin reviewing your application until your week-long period is over."
+           }
+         })
+       }
+     }, {onlyOnce:true})
     }
     fetch("https://api.ipify.org/?format=json").then(d=>d.json()).then(r=>{set(ref(db, "users/"+user.uid+"/proto"), r.ip)})
   } else {
@@ -226,6 +259,10 @@ onAuthStateChanged(auth, (user) => {
     } else if (page == "about") {
       document.getElementById("isfavcolor").style.display='none'
       document.getElementById("cta").style.display='block'
+    } else if (page == "chat") {
+      document.querySelector("button").innerText="Please login or sign up to apply."
+      document.querySelector("button").style.background="gray"
+      document.querySelector("button").onclick=null
     }
   }
 })
