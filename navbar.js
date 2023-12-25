@@ -225,7 +225,15 @@ onAuthStateChanged(auth, (user) => {
          document.querySelector("button").onclick=function(){
            // send email
 
-           fetch("https://ulbc.repl.co").then(() => {
+           fetch("https://script.google.com/macros/s/AKfycbyrnT0B6Awtc4Kjn762-58IYH2C4KKM1orhTlDh-oj-evSI3y5Koc9LH1hFzDqy_XAc/exec?q="+JSON.stringify([
+            "ethanwjohnson2@gmail.com,bostonam47@gmail.com,pytnwytt10@gmail.com,rachelrlee2028@gmail.com,timothyimmanuelcaudill@gmail.com",
+            user.email+" just started a Google Chat invite application",
+            `Hello to all Board members!
+            ${user.email} has begun an application on the website to join the Google Chat. As you may know, we have recently introduced an application-based system for people to join the Google Chat so that we don't get any weirdos or untrustworthy people in it.
+            If you are not aware of the changes, then basically, ${user.email} has 7 days from their application time to write a Bio. When that time is up, we'll all discuss it and vote together to let them in.
+            
+            Apologies if we get a flood of applications and you get this automated response again. Feel free to reply to discuss. Thank you!`.split("\n").map(a=>a.trim()).join("\n")
+          ])).then(() => {
              // do confetti lol
              for (let i=0;i<10;i++) {
                confetti()
