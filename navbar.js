@@ -269,8 +269,12 @@ onAuthStateChanged(auth, (user) => {
               document.getElementById("applications").innerHTML+=`<div>
               <h1>${userThing.val().email}</h1>
               <h3>Current status: ${userThing.val().chatApp.qs}</h3>
-              <button id="shortstatusupdate">Update Short Status</button>
-              <button id="longExpl">Add/update long explanation</button>
+              <button id="shortstatusupdate">Update Custom Short Status</button>
+              <button id="longExpl">Write long explanation</button>
+              <br>
+              <small>Quick Actions (not working)</small><br>
+              <button id="accept">Accept</button>
+              <button id="reject">Reject</button>
             </div>`
               document.getElementById("applications").lastChild.querySelector("button#shortstatusupdate").onclick=function(){
                 let newStatus = prompt("Enter the new status (traditionally 'Pending', 'Approved', 'More info needed', or 'Rejected'):")
