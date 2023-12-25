@@ -258,7 +258,7 @@ onAuthStateChanged(auth, (user) => {
        }
      }, {onlyOnce:true})
     } else if (page == "chatapps") {
-      if (!["ethanwjohnson2@gmail.com","bostonam47@gmail.com","pytnwytt10@gmail.com","rachelrlee2028@gmail.com","timothyimmanuelcaudill@gmail.com"].includes(user.email)) {
+      if (!["ethanwjohnson2@gmail.com","testguy@cool.man","PaytonWyatt@ulbc.com","rachelrlee2028@gmail.com","jimothy@ulbc.com"].includes(user.email)) {
         location.href="/chat"
       } else {
         // add all the code
