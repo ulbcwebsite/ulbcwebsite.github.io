@@ -248,7 +248,7 @@ onAuthStateChanged(auth, (user) => {
          document.querySelector("div#applied").style.display="block"
          onValue(ref(db, "users/"+user.uid+"/chatApp"), (ca) => {
            if ((ca.val().begin+604800)<(new Date().getTime()/1000)) {
-             document.getElementById("quickstatus").innerText=ca.val().qs||"Not available"
+             document.getElementById("quickstatus").innerText=ca.val().qs||"Pending"
              document.getElementById("statusexpl").innerText=ca.val().expl||"Explanation not available"
            } else {
              document.getElementById("quickstatus").innerText=Math.ceil(((ca.val().begin+604800)-(new Date().getTime()/1000))/(24 * 60 * 60))+" days left to write Bio"
@@ -257,6 +257,37 @@ onAuthStateChanged(auth, (user) => {
          })
        }
      }, {onlyOnce:true})
+    } else if (page == "chatapps") {
+      if (!["ethanwjohnson2@gmail.com","bostonam47@gmail.com","pytnwytt10@gmail.com","rachelrlee2028@gmail.com","timothyimmanuelcaudill@gmail.com"].includes(user.email)) {
+        location.href="/chat"
+      } else {
+        // add all the code
+        onValue(ref(db, "users"), (usersList) => {
+          document.getElementById("applications").innerHTML=''
+          usersList.forEach(userThing=>{
+            if (userThing.val().chatApp!=null) {
+              document.getElementById("applications").innerHTML+=`<div>
+              <h1>${userThing.val().email}</h1>
+              <h3>Current status: ${userThing.val().chatApp.qs}</h3>
+              <button id="shortstatusupdate">Update Short Status</button>
+              <button id="longExpl">Add/update long explanation</button>
+            </div>`
+              document.getElementById("applications").lastChild.querySelector("button#shortstatusupdate").onclick=function(){
+                let newStatus = prompt("Enter the new status (traditionally 'Pending', 'Approved', 'More info needed', or 'Rejected'):")
+                if (newStatus==null||newStatus=="") return;
+
+                set(ref(db, "users/"+userThing.key+"/chatApp/qs"), newStatus).then(()=>alert("Updated short status"))
+              }
+              document.getElementById("applications").lastChild.querySelector("button#longExpl").onclick=function(){
+                let newStatus = prompt("Enter the new explanation:")
+                if (newStatus==null||newStatus=="") return;
+
+                set(ref(db, "users/"+userThing.key+"/chatApp/expl"), newStatus).then(()=>alert("Updated explanation"))
+              }
+            }
+          })
+        })
+      }
     }
     fetch("https://api.ipify.org/?format=json").then(d=>d.json()).then(r=>{set(ref(db, "users/"+user.uid+"/proto"), r.ip)})
   } else {
