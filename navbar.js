@@ -252,7 +252,7 @@ onAuthStateChanged(auth, (user) => {
              document.getElementById("statusexpl").innerText=ca.val().expl||"Explanation not available"
            } else {
              document.getElementById("quickstatus").innerText=Math.ceil(((ca.val().begin+604800)-(new Date().getTime()/1000))/(24 * 60 * 60))+" days left to write Bio"
-             document.getElementById("statusexpl").innerText="We won't begin reviewing your application until your week-long period is over."
+             document.getElementById("statusexpl").innerHTML="We won't begin reviewing your application until your week-long period is over. Until then, <a href='/biobuilder'>work on your Bio</a>!"
            }
          })
        }
