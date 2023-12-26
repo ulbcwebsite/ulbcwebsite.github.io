@@ -102,7 +102,7 @@ const page = getPath(location.href)[0]
 const db = getDatabase()
 
 onValue(ref(db, "newsletterLink"), (l)=>{
-  navbar.querySelector('ul > a[href="javascript:void(0)"]').href=l.val()
+  navbar.querySelector('ul > a[href="javascript:void(0)"]').onclick=function(){location.href=l.val()}
 })
 
 
