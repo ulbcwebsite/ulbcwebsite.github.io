@@ -219,7 +219,7 @@ onAuthStateChanged(auth, (user) => {
       document.getElementById("main").style.display='block'
       document.getElementById("loggedout").style.display='none'
       theusersemailfr=user.email
-    } else if (location.href=="https://ulbc.repl.co/") {
+    } else if (location.href=="https://ulbc.repl.co/"||location.href=="https://ulbcwebsite.github.io/") {
       Array.from(document.body.children).map(a=>Array.from(document.body.children).indexOf(a)>Array.from(document.body.children).indexOf(document.querySelector("script[type=module]"))?a.remove():"cool")
       fetch("/featured.html").then(r=>r.text()).then(r=>{
         document.body.insertAdjacentHTML('beforeend', r.split("<!-- Begin -->")[1].split("<!-- End -->")[0])
