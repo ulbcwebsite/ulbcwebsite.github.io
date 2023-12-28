@@ -13,14 +13,48 @@
   <div style="display:none;" id="main">
     <h1>Bio Builder</h1>
     <h2>Write away!</h2>
-    <p>NEW: Set background color of your Bio page: <input type="color" value="#ffffff"></p>
     <p id="wordCount">Words: 0</p>
     <p id="charCount">Characters: 0</p>
-    <small style="font-size:1.01em;">Tip: Markdown is supported! <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Click here</a> for a basic guide.<br>If you don't want a part of your Bio to support Markdown, type <code>&lt;pre&gt;</code> at the beginning of the part and <code>&lt;/pre&gt;</code> at the end of it.</small><br>
-    <small style="font-size:1.01em;">Make sure to follow the Guidelines, or we could delete your Bio! <a href="javascript:alert('Two main ground rules for Bios:\n1. No spamming or excessive copy-and-pasting\n2. Absolutely zero AI unless permitted by the Organization')">View Guidelines</a><br><small>(Applicants to the Chat will be required to follow these rules very strictly.)</small></small><br>
+  <p>Notes and tips:</p>
+    <ul>
+      <li>Markdown is supported! <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Click here</a> for a basic guide.<br>If you don't want a part of your Bio to support Markdown, type <code>&lt;pre&gt;</code> at the beginning of the part and <code>&lt;/pre&gt;</code> at the end of it.</li>
+      <li>Make sure to follow the Guidelines, or we could delete your Bio! <a href="javascript:alert('Two main ground rules for Bios:\n1. No spamming or excessive copy-and-pasting\n2. Absolutely zero AI unless permitted by the Organization')">View Guidelines</a><br>(Applicants to the Chat will be required to follow these rules very strictly.)</li>
+    </ul>
+    <h3>Settings</h3>
+    <p>Background color of your Bio page: <input type="color" value="#ffffff"></p>
+    <h4>Statuses</h4>
+    <p>Statuses are labels that show in Leaderboard/Discovery to let readers know something's new with your Bio. Coming soon</p>
+    <!--<select style="font-size:17pt;border:1px solid black;border-radius:10px;">
+      <option selected disabled>Select a Status</option>
+      <option style="color: rgb(255,83,83);">Updated</option>
+      <option style="color: green;">Revamped</option>
+      <option style="color: gray;">Inactive</option>
+      <option style="color: orange;">Update coming soon</option>
+    </select>-->
+    <button onclick="hitTheLights(this)">Turn the lights off</button>
     <small style="color:gray;font-size:0.75em;" id="saveIndic"></small><br>
     <textarea style="width:100%;min-height:250px;height:max-content;" placeholder="Write something!"></textarea>
   </div>
+  <script>
+    function hitTheLights(a) {
+      console.log(a)
+      console.log(a.innerText)
+      if (a.innerText.endsWith("off")) {
+        // turn em off
+        document.body.style.background="black"
+        Array.from(document.querySelectorAll('#main > *:not(textarea):not(button[onclick="hitTheLights(this)"]):not(#saveIndic)')).map(b=>b.style.visibility="hidden")
+        a.innerText="back on"
+        a.style.opacity="0.5"
+      } else {
+        // turn em back on
+        
+        document.body.style.background="white"
+        Array.from(document.querySelectorAll('#main > *:not(textarea):not(button[onclick="hitTheLights(this)"]):not(#saveIndic)')).map(b=>b.style.visibility="visible")
+        a.innerText="Turn the lights off"
+        a.style.opacity="1"
+      }
+    }
+  </script>
   <div style="text-align:center;display:none;" id="loggedout">
     <h1>Please Login</h1>
     <h2>To write your Bio, please sign in or join.</h2>
