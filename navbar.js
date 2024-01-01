@@ -112,9 +112,21 @@ switch (page) {
     loginSuccess = function(email, password) {
       signInWithEmailAndPassword(auth, email, password).then(() => {
         alert("Welcome back!")
-        location.href=document.referrer!="https://ulbc.repl.co/"?document.referrer:"/biobuilder"
+        location.href=(document.referrer!="https://ulbc.repl.co/"&&document.referrer!="https://ulbcwebsite.github.io/")?document.referrer:"/biobuilder"
       }).catch((error) => {
-        showError(error.code.split("auth/")[1].replaceAll("-", " ").charAt(0).toUpperCase() + error.code.split("auth/")[1].replaceAll("-", " ").slice(1))
+        if (error.code=="auth/user-disabled") {
+          get(ref(db, "users")).then((groupOfUsers) => {
+            groupOfUsers.forEach(exampleOfAUser => {
+              if (exampleOfAUser.val().email == email) {
+                get(ref(db, "users/"+exampleOfAUser.key+"/banReason")).then((reason) => {
+                  showError("You have been banned indefinitely. Reason: " + reason.val()||"Unspecified")
+                })
+              }
+            })
+          })
+        } else {
+          showError(error.code.split("auth/")[1].replaceAll("-", " ").charAt(0).toUpperCase() + error.code.split("auth/")[1].replaceAll("-", " ").slice(1))
+        }
       })
     }
     break
