@@ -119,7 +119,11 @@ switch (page) {
             groupOfUsers.forEach(exampleOfAUser => {
               if (exampleOfAUser.val().email == email) {
                 get(ref(db, "users/"+exampleOfAUser.key+"/banReason")).then((reason) => {
-                  showError("You have been banned indefinitely. Reason: " + reason.val()||"Unspecified")
+                  if (reason.exists()) {
+                    showError("You have been banned indefinitely. Reason: " + reason.val())
+                  } else {
+                    showError("You have been banned indefinitely.")
+                  }
                 })
               }
             })
@@ -288,9 +292,11 @@ onAuthStateChanged(auth, (user) => {
             if (userThing.val().chatApp!=null) {
               document.getElementById("applications").innerHTML+=`<div>
               <h1>${userThing.val().email}</h1>
-              <h3>Current status: ${userThing.val().chatApp.qs}</h3>
+              <h3>Current status: ${userThing.val().chatApp.qs||"None added (shows as 'Pending')"}</h3>
+              <h3>Time of start of application: ${new Date(userThing.val().chatApp.begin*1000)}</h3>
               <button id="shortstatusupdate">Update Custom Short Status</button>
               <button id="longExpl">Write long explanation</button>
+              <button id="extendDeadline">Extend application deadline</button>
               <br>
               <small>Quick Actions (not working)</small><br>
               <button id="accept">Accept</button>
@@ -307,6 +313,21 @@ onAuthStateChanged(auth, (user) => {
                 if (newStatus==null||newStatus=="") return;
 
                 set(ref(db, "users/"+userThing.key+"/chatApp/expl"), newStatus).then(()=>alert("Updated explanation"))
+              }
+              document.getElementById("applications").lastChild.querySelector("button#accept").onclick=function(){
+                set(ref(db, "users/"+userThing.key+"/chatApp/qs"), "Accepted")
+                set(ref(db, "users/"+userThing.key+"/chatApp/expl"), "No additional details have been provided.")
+              }
+              document.getElementById("applications").lastChild.querySelector("button#reject").onclick=function(){
+                set(ref(db, "users/"+userThing.key+"/chatApp/qs"), "Rejected")
+                set(ref(db, "users/"+userThing.key+"/chatApp/expl"), "No additional details have been provided.")
+              }
+              document.getElementById("applications").lastChild.querySelector("button#extendDeadline").onclick=function(){
+                let confirmation = confirm("Confirm that you want to reset the 7 day period for this user.")
+
+                if (confirmation) {
+                  set(ref(db, "users/"+userThing.key+"/chatApp/begin"), new Date().getTime()/1000)
+                }
               }
             }
           })
