@@ -1,4 +1,4 @@
-const ANNOUNCEMENT = "NOTICE: Due to multiple issues with our hosting provider, ulbc.repl.co is down! Please migrate to ulbcwebsite.github.io until further notice."
+const ANNOUNCEMENT = "Happy New Year! We just had our New Year's meeting; take a look at our notes <a style='color:white;' href='https://supernorm.al/meeting-on-january-06-2024-21-07-817340f08f05013cb5772ae6e54488fe'>here</a>!"
 
 let navbar = document.createElement('div')
 let banner = document.createElement('div')
