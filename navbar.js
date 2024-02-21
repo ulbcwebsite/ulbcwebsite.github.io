@@ -47,8 +47,8 @@ const navigationElements = [
 
 
 
-// navbar.innerHTML=`<ul class="nvbr"></ul>
-// <style>ul.nvbr { list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333; } ul.nvbr li { float: left; border-right: 1px solid #bbb; } ul.nvbr li a { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; } ul.nvbr li a:hover { background-color: #111; } li:last-child { border-right: none; }</style>`
+navbar.innerHTML=`<ul class="nvbr"></ul>
+<style>ul.nvbr { list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333; } ul.nvbr li { float: left; border-right: 1px solid #bbb; } ul.nvbr li a { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; } ul.nvbr li a:hover { background-color: #111; } li:last-child { border-right: none; }</style>`
 
 // banner.style = "width: calc(100%-10px);padding: 10px;background-color: rgb(255, 83, 83);color: white;text-align: center;"
 // banner.innerHTML = ANNOUNCEMENT
