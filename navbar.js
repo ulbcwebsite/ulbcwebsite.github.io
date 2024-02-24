@@ -113,7 +113,7 @@ switch (page) {
     loginSuccess = function(email, password) {
       signInWithEmailAndPassword(auth, email, password).then(() => {
         alert("Welcome back!")
-        location.href=(document.referrer!="https://ulbc.repl.co/"&&document.referrer!="https://ulbcwebsite.github.io/")?document.referrer:"/biobuilder"
+        location.href=(document.referrer!="https://www.ulbc.xyz/"&&document.referrer!="https://ulbcwebsite.github.io/")?document.referrer:"/biobuilder"
       }).catch((error) => {
         if (error.code=="auth/user-disabled") {
           get(ref(db, "users")).then((groupOfUsers) => {
@@ -236,7 +236,7 @@ onAuthStateChanged(auth, (user) => {
       document.getElementById("main").style.display='block'
       document.getElementById("loggedout").style.display='none'
       theusersemailfr=user.email
-    } else if (location.href=="https://ulbc.repl.co/"||location.href=="https://ulbcwebsite.github.io/") {
+    } else if (location.href=="https://www.ulbc.xyz/"||location.href=="https://ulbcwebsite.github.io/") {
       Array.from(document.body.children).map(a=>Array.from(document.body.children).indexOf(a)>Array.from(document.body.children).indexOf(document.querySelector("script[type=module]"))?a.remove():"cool")
       fetch("/featured.html").then(r=>r.text()).then(r=>{
         document.body.insertAdjacentHTML('beforeend', r.split("<!-- Begin -->")[1].split("<!-- End -->")[0])
@@ -253,7 +253,7 @@ onAuthStateChanged(auth, (user) => {
            fetch("https://script.google.com/macros/s/AKfycbyrnT0B6Awtc4Kjn762-58IYH2C4KKM1orhTlDh-oj-evSI3y5Koc9LH1hFzDqy_XAc/exec?q="+JSON.stringify([
             "ethanwjohnson2@gmail.com,bostonam47@gmail.com,pytnwytt10@gmail.com,rachelrlee2028@gmail.com,timothyimmanuelcaudill@gmail.com,giannainterlante@gmail.com",
             user.email+" started a Google Chat application",
-            `Discuss the chat application of ${user.email} here! Also click here to quickly view their Bio: https://ulbcwebsite.github.io/profile/?${user.uid}`.split("\n").map(a=>a.trim()).join("\n")
+            `Discuss the chat application of ${user.email} here! Also click here to quickly view their Bio: https://www.ulbc.xyz/profile/?${user.uid}`.split("\n").map(a=>a.trim()).join("\n")
           ])).then(() => {
              // do confetti lol
              for (let i=0;i<10;i++) {
