@@ -287,45 +287,45 @@ onAuthStateChanged(auth, (user) => {
           document.getElementById("applications").innerHTML=''
           usersList.forEach(userThing=>{
             if (userThing.val().chatApp!=null) {
-              document.getElementById("applications").innerHTML+=`<div>
-              <h1>${userThing.val().email}</h1>
-              <h3>Current status: ${userThing.val().chatApp.qs||"None added (shows as 'Pending')"}</h3>
-              <h3>Time of start of application: ${new Date(userThing.val().chatApp.begin*1000)}</h3>
-              <button id="shortstatusupdate">Update Custom Short Status</button>
-              <button id="longExpl">Write long explanation</button>
-              <button id="extendDeadline">Extend application deadline</button>
+              let div = document.createElement('div');
+              div.innerHTML = `<h1>${userThing.val().email}</h1>
+              <h3>Current status: ${userThing.val().chatApp.qs || "None added (shows as 'Pending')"}</h3>
+              <h3>Time of start of application: ${new Date(userThing.val().chatApp.begin * 1000)}</h3>
+              <button class="shortstatusupdate">Update Custom Short Status</button>
+              <button class="longExpl">Write long explanation</button>
+              <button class="extendDeadline">Extend application deadline</button>
               <br>
               <small>Quick Actions (not working)</small><br>
-              <button id="accept">Accept</button>
-              <button id="reject">Reject</button>
-            </div>`
-              document.getElementById("applications").lastChild.querySelector("button#shortstatusupdate").onclick=function(){
+              <button class="accept">Accept</button>
+              <button class="reject">Reject</button>`
+              div.querySelector("button.shortstatusupdate").onclick=function(){
                 let newStatus = prompt("Enter the new status (traditionally 'Pending', 'Approved', 'More info needed', or 'Rejected'):")
                 if (newStatus==null||newStatus=="") return;
 
                 set(ref(db, "users/"+userThing.key+"/chatApp/qs"), newStatus).then(()=>alert("Updated short status"))
               }
-              document.getElementById("applications").lastChild.querySelector("button#longExpl").onclick=function(){
+              div.querySelector("button.longExpl").onclick=function(){
                 let newStatus = prompt("Enter the new explanation:")
                 if (newStatus==null||newStatus=="") return;
 
                 set(ref(db, "users/"+userThing.key+"/chatApp/expl"), newStatus).then(()=>alert("Updated explanation"))
               }
-              document.getElementById("applications").lastChild.querySelector("button#accept").onclick=function(){
+              div.querySelector("button.accept").onclick=function(){
                 set(ref(db, "users/"+userThing.key+"/chatApp/qs"), "Accepted")
                 set(ref(db, "users/"+userThing.key+"/chatApp/expl"), "No additional details have been provided.")
               }
-              document.getElementById("applications").lastChild.querySelector("button#reject").onclick=function(){
+              div.querySelector("button.reject").onclick=function(){
                 set(ref(db, "users/"+userThing.key+"/chatApp/qs"), "Rejected")
                 set(ref(db, "users/"+userThing.key+"/chatApp/expl"), "No additional details have been provided.")
               }
-              document.getElementById("applications").lastChild.querySelector("button#extendDeadline").onclick=function(){
+              div.querySelector("button.extendDeadline").onclick=function(){
                 let confirmation = confirm("Confirm that you want to reset the 7 day period for this user.")
 
                 if (confirmation) {
                   set(ref(db, "users/"+userThing.key+"/chatApp/begin"), new Date().getTime()/1000)
                 }
               }
+              document.getElementById("applications").appendChild(div)
             }
           })
         })
