@@ -23,14 +23,14 @@
     <h3>Settings</h3>
     <p>Background color of your Bio page: <input type="color" value="#ffffff"></p>
     <h4>Statuses</h4>
-    <p>Statuses are labels that show in Leaderboard/Discovery to let readers know something's new with your Bio. Coming soon</p>
-    <!--<select style="font-size:17pt;border:1px solid black;border-radius:10px;">
-      <option selected disabled>Select a Status</option>
+    <p>Statuses are labels that show in Leaderboard/Discovery to let readers know something's new with your Bio. Note that this acts as a status text, not a notification. it doesn't clear when your Bio is viewed again.</p>
+    <select id="statuses" style="font-size:17pt;border:1px solid black;outline:none;border-radius:10px;">
+      <option selected>None</option>
       <option style="color: rgb(255,83,83);">Updated</option>
       <option style="color: green;">Revamped</option>
       <option style="color: gray;">Inactive</option>
       <option style="color: orange;">Update coming soon</option>
-    </select>-->
+    </select>
     <button onclick="hitTheLights(this)">Turn the lights off</button>
     <small style="color:gray;font-size:0.75em;" id="saveIndic"></small><br>
     <textarea style="width:100%;min-height:250px;height:max-content;" placeholder="Write something!"></textarea>
@@ -43,6 +43,7 @@
         // turn em off
         document.body.style.background="black"
         Array.from(document.querySelectorAll('#main > *:not(textarea):not(button[onclick="hitTheLights(this)"]):not(#saveIndic)')).map(b=>b.style.visibility="hidden")
+        document.querySelector("#statuses").style.display='none'
         a.innerText="back on"
         a.style.opacity="0.5"
       } else {
@@ -50,6 +51,7 @@
         
         document.body.style.background="white"
         Array.from(document.querySelectorAll('#main > *:not(textarea):not(button[onclick="hitTheLights(this)"]):not(#saveIndic)')).map(b=>b.style.visibility="visible")
+        document.querySelector("#statuses").style.display='block'
         a.innerText="Turn the lights off"
         a.style.opacity="1"
       }

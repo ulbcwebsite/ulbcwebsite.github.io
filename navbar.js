@@ -158,12 +158,34 @@ switch (page) {
       document.querySelector("ol").innerHTML=''
       var emailsArray = testThingy.map(a=>a.email||"Unidentified User")
       var wordsAmtArray = testThingy.map(a=>a.views)
-      var combined = emailsArray.map((word, i) => ({word: word, number: wordsAmtArray[i], uid: Object.keys(snapshot.val())[i], views: testThingy[i].views||0}));
+      var combined = emailsArray.map((word, i) => ({word: word, number: wordsAmtArray[i], uid: Object.keys(snapshot.val())[i], views: testThingy[i].views||0, status: testThingy[i].status||"None"}));
       combined.sort((a, b) => b.number - a.number);
       var sortedEmails = combined.map(item => item.word);
       var sortedNumbers = combined.map(item => item.number);
       sortedEmails.forEach((email, idx) => {
         document.querySelector("ol").innerHTML+=`<li><a href="/profile/?${combined[idx].uid}">`+email+"</a> - "+combined[idx].views+" views</li>"
+        if (combined[idx].status != "None") {
+          document.querySelector("ol").lastChild.innerHTML+=(" - <span>"+combined[idx].status+"</span>")
+          let statusColor
+          switch (combined[idx].status) {
+            case 'Updated':
+              statusColor="red"
+              break
+            case 'Revamped':
+              statusColor="green"
+              break
+            case 'Inactive':
+              statusColor="gray"
+              break
+            case 'Update coming soon':
+              statusColor="orange"
+              break
+            default:
+              statusColor="black"
+              break
+          }
+          document.querySelector("ol").lastChild.lastChild.style.color=statusColor
+        }
       })
     })
     break
@@ -219,7 +241,11 @@ onAuthStateChanged(auth, (user) => {
       document.querySelector("#main input[type=color]").onchange=function(){
         set(ref(db, "users/"+user.uid+"/bioBg"), this.value)
       }
+      document.querySelector("#statuses").onchange=function() {
+        set(ref(db, "users/"+user.uid+"/status"), this.value)
+      }
       get(ref(db, "users/"+user.uid)).then((snapshot) => {
+        document.querySelector("#statuses").value=snapshot.val().status||"None"
         document.querySelector("#main textarea").value=snapshot.val().bio
         document.querySelector("#main input[type=color]").value=snapshot.val().bioBg||"#ffffff"
         document.getElementById("wordCount").innerText="Words: "+snapshot.val().bio.split(" ").length||0
