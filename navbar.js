@@ -169,7 +169,7 @@ switch (page) {
           let statusColor
           switch (combined[idx].status) {
             case 'Updated':
-              statusColor="red"
+              statusColor="rgb(255,83,83)"
               break
             case 'Revamped':
               statusColor="green"
@@ -179,6 +179,9 @@ switch (page) {
               break
             case 'Update coming soon':
               statusColor="orange"
+              break
+            case 'Minor Update':
+              statusColor="dodgerblue"
               break
             default:
               statusColor="black"
