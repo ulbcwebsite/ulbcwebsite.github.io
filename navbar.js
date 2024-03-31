@@ -360,7 +360,7 @@ onAuthStateChanged(auth, (user) => {
         })
       }
     } else if (page == "newsletter-portal") {
-      if (user.email=="rachelrlee2028@gmail.com") {
+      if (user.uid=="PUFruTgrrkRJmuzCuTwEJJu2TgM2") {
         document.querySelector("button").onclick=function(){
           let newSletterLink = prompt("Paste link below:")
           set(ref(db, "newsletterLink"), newSletterLink)
