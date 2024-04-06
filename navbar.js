@@ -367,11 +367,12 @@ onAuthStateChanged(auth, (user) => {
           set(ref(db, "newsletterLink"), newSletterLink)
           let sendEmails = confirm("Send email to all users (including yourself lol)?")
           if (sendEmails==null||sendEmails==false) return;
+          let dateoverride = prompt("Type a date for the newsletter email in 1/23/45 format. Press cancel or leave blank to use current date.")
           get(ref(db, "users")).then((acutallytheusersnocap) => {
             let actuallytheusersnocap = acutallytheusersnocap.val().map(a=>a.email)
             fetch("https://script.google.com/macros/s/AKfycbyrnT0B6Awtc4Kjn762-58IYH2C4KKM1orhTlDh-oj-evSI3y5Koc9LH1hFzDqy_XAc/exec?q="+JSON.stringify([
               actuallytheusersnocap.join(","),
-              `${new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })} Newsletter`,
+              `ULBC Newsletter ${dateoverride==null||dateoverride.length==0?new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }):dateoverride}`,
               `Hello everyone,
               The newest issue of our newsletter has been released! Please click the following link to read it: ${newSletterLink}`.split("\n").map(a=>a.trim()).join("\n")
             ])).then(() => {
