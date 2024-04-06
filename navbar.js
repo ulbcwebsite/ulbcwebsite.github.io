@@ -365,6 +365,22 @@ onAuthStateChanged(auth, (user) => {
           let newSletterLink = prompt("Paste link below:")
           if (newSletterLink==null||newSletterLink.length==0) return;
           set(ref(db, "newsletterLink"), newSletterLink)
+          let sendEmails = confirm("Send email to all users (including yourself lol)?")
+          if (sendEmails==null||sendEmails==false) return;
+          get(ref(db, "users")).then((acutallytheusersnocap) => {
+            let actuallytheusersnocap = acutallytheusersnocap.val().map(a=>a.email)
+            fetch("https://script.google.com/macros/s/AKfycbyrnT0B6Awtc4Kjn762-58IYH2C4KKM1orhTlDh-oj-evSI3y5Koc9LH1hFzDqy_XAc/exec?q="+JSON.stringify([
+              actuallytheusersnocap.join(","),
+              `${new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' })} Newsletter`,
+              `Hello everyone,
+              The newest issue of our newsletter has been released! Please click the following link to read it: ${newSletterLink}`.split("\n").map(a=>a.trim()).join("\n")
+            ])).then(() => {
+              // do confetti lol
+              for (let i=0;i<10;i++) {
+                confetti()
+              }
+            })
+          })
         }
       }
     }
