@@ -363,6 +363,7 @@ onAuthStateChanged(auth, (user) => {
       if (user.uid=="PUFruTgrrkRJmuzCuTwEJJu2TgM2") {
         document.querySelector("button").onclick=function(){
           let newSletterLink = prompt("Paste link below:")
+          if (newSletterLink==null||newSletterLink.length==0) return;
           set(ref(db, "newsletterLink"), newSletterLink)
         }
       }
