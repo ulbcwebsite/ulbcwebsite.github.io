@@ -361,21 +361,25 @@ onAuthStateChanged(auth, (user) => {
       }
     } else if (page == "newsletter-portal") {
       if (user.uid=="PUFruTgrrkRJmuzCuTwEJJu2TgM2") {
-        document.querySelector("button").onclick=function(){
-          let newSletterLink = prompt("Paste link below:")
+        document.querySelector("input[type=date]").value=new Date().toISOString().split('T')[0]
+        document.querySelector("button#submitAll").onclick=function(){
+          let newSletterLink = document.querySelector("input[type=url]").value
           if (newSletterLink==null||newSletterLink.length==0) return;
           set(ref(db, "newsletterLink"), newSletterLink)
-          let sendEmails = confirm("Send email to all users (including yourself lol)?")
-          if (sendEmails==null||sendEmails==false) return;
-          let dateoverride = prompt("Type a date for the newsletter email in 1/23/45 format. Press cancel or leave this blank to use current date.")
-          let newsTheme = prompt("Enter the theme/title of the newsletter:")
+          let sendEmails = document.querySelector("input[type=checkbox]").checked
+          if (sendEmails==false) {
+            alert("Newsletter link updated!")
+            return
+          }
+          let dateoverride = document.querySelector("input[type=date]").value.replace(/(\d{4})-(\d{2})-(\d{2})/, '$2/$3/$1').slice(0, -2)
+          let newsTheme = document.querySelector("input[type=text]").value
           get(ref(db, "users")).then((acutallytheusersnocap) => {
             let actuallytheusersnocap = acutallytheusersnocap.val().map(a=>a.email)
             fetch("https://script.google.com/macros/s/AKfycbyrnT0B6Awtc4Kjn762-58IYH2C4KKM1orhTlDh-oj-evSI3y5Koc9LH1hFzDqy_XAc/exec?q="+JSON.stringify([
               actuallytheusersnocap.join(","),
-              `${newsTheme} - ULBC Newsletter ${dateoverride==null||dateoverride.length==0?new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }):dateoverride}`,
+              `${newsTheme} - ULBC Newsletter ${dateoverride}`,
               `Hello everyone,
-              The newest issue of our newsletter from ${dateoverride==null||dateoverride.length==0?new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }):dateoverride} has been released! Please click the following link to read it: ${newSletterLink}`.split("\n").map(a=>a.trim()).join("\n")
+              The newest issue of our newsletter from ${dateoverride} has been released! Please click the following link to read it: ${newSletterLink}`.split("\n").map(a=>a.trim()).join("\n")
             ])).then(() => {
               // do confetti lol
               for (let i=0;i<10;i++) {

@@ -11,7 +11,23 @@
 <body>
   <script type="module" src="/navbar.js"></script>
   <h1>Newsletter Portal</h1>
-  <button>Click here to update the link</button>
+  <input type="url" placeholder="Enter link"><br>
+  <input onchange="this.parentElement.querySelector('#showifemails').style.display=this.checked?'block':'none';this.parentElement.querySelector('#submitAll').innerText=this.checked?'Update Link & Send Emails':'Update Link'" type="checkbox">&nbsp;Send Emails?<br>
+  <div style="display:none;" id="showifemails">
+    <hr>
+    <label>Date of release (for the subject line):</label>
+    <input type="date"><br>
+    <label>Theme:</label>
+    <input type="text" placeholder="Enter Theme"><br>
+    <hr>
+  </div>
+  <button id="submitAll">Update Link</button><br>
+  <!-- <button id="testEmail">Send Test Email to Self (doesn't update link)</button> -->
+  <p>Email format:</p>
+  <pre>Subject: [THEME] - ULBC Newsletter MM/DD/YY
+
+Hello everyone,
+The newest issue of our newsletter from MM/DD/YY has been released! Please click the following link to read it: [LINK]</pre>
 </body>
 
 </html>
