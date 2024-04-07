@@ -308,7 +308,7 @@ onAuthStateChanged(auth, (user) => {
        }
      }, {onlyOnce:true})
     } else if (page == "chatapps") {
-      if (!["ethanwjohnson2@gmail.com","testguy@cool.man","PaytonWyatt@ulbc.com","rachelrlee2028@gmail.com","jimothy@ulbc.com"].includes(user.email)) {
+      if (!["ethanwjohnson2@gmail.com","testguy@cool.man","PaytonWyatt@ulbc.com","rachel@ulbc.xyz","jimothy@ulbc.xyz"].includes(user.email)) {
         location.href="/chat"
       } else {
         // add all the code
@@ -367,14 +367,15 @@ onAuthStateChanged(auth, (user) => {
           set(ref(db, "newsletterLink"), newSletterLink)
           let sendEmails = confirm("Send email to all users (including yourself lol)?")
           if (sendEmails==null||sendEmails==false) return;
-          let dateoverride = prompt("Type a date for the newsletter email in 1/23/45 format. Press cancel or leave blank to use current date.")
+          let dateoverride = prompt("Type a date for the newsletter email in 1/23/45 format. Press cancel or leave this blank to use current date.")
+          let newsTheme = prompt("Enter the theme/title of the newsletter:")
           get(ref(db, "users")).then((acutallytheusersnocap) => {
             let actuallytheusersnocap = acutallytheusersnocap.val().map(a=>a.email)
             fetch("https://script.google.com/macros/s/AKfycbyrnT0B6Awtc4Kjn762-58IYH2C4KKM1orhTlDh-oj-evSI3y5Koc9LH1hFzDqy_XAc/exec?q="+JSON.stringify([
               actuallytheusersnocap.join(","),
-              `ULBC Newsletter ${dateoverride==null||dateoverride.length==0?new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }):dateoverride}`,
+              `${newsTheme} - ULBC Newsletter ${dateoverride==null||dateoverride.length==0?new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }):dateoverride}`,
               `Hello everyone,
-              The newest issue of our newsletter has been released! Please click the following link to read it: ${newSletterLink}`.split("\n").map(a=>a.trim()).join("\n")
+              The newest issue of our newsletter from ${dateoverride==null||dateoverride.length==0?new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }):dateoverride} has been released! Please click the following link to read it: ${newSletterLink}`.split("\n").map(a=>a.trim()).join("\n")
             ])).then(() => {
               // do confetti lol
               for (let i=0;i<10;i++) {
