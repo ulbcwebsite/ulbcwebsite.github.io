@@ -3,8 +3,6 @@ const ANNOUNCEMENT = "Happy New Year! We just had our New Year's meeting; take a
 let navbar = document.createElement('div')
 let banner = document.createElement('div')
 
-//fetch("https://api.ipify.org/?format=json").then(d=>d.json()).then(a=>{if(a.ip!=atob("MTk5LjE4MC4xMjEuMTA4")){document.body.innerHTML=`<div style="text-align:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);"><h1>HEY...</h1><h2>Whatcha doin' here? This is still under development.</h2></div>`}})
-
 import confetti from 'https://cdn.skypack.dev/canvas-confetti';
 
 const navigationElements = [

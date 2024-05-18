@@ -1,0 +1,20 @@
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyAVN3YOEaRrSyM6qXOKVCO-x4O_F36Bq1o",
+    authDomain: "theulbc.firebaseapp.com",
+    projectId: "theulbc",
+    storageBucket: "theulbc.appspot.com",
+    messagingSenderId: "828626896874",
+    appId: "1:828626896874:web:976a975791113fb036d493"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase();
+
+  onValue(ref(db, "newsletterLink"), (l) => {
+    location.href=l.val()
+  })
+</script>
