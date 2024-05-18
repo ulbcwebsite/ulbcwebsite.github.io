@@ -36,7 +36,7 @@ const navigationElements = [
   },
   {
     text: "Newsletter",
-    link: "javascript:void(0)"
+    link: "/newsletter"
   }
 ]
 
@@ -99,10 +99,6 @@ function getPath(url) {
 }
 const page = getPath(location.href)[0]
 const db = getDatabase()
-
-onValue(ref(db, "newsletterLink"), (l)=>{
-  navbar.querySelector('ul').children[7].onclick=function(){location.href=l.val()}
-})
 
 
 /* DEFINE CUSTOM FUNCTIONS FOR CERTAIN PAGES */
