@@ -213,13 +213,13 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     /* UPDATE NAVBAR */
     document.getElementById("signupbtn").style.display='none'
-    document.getElementById("loginbtn").children[0].href="javascript:void(0);"
-    document.getElementById("loginbtn").children[0].innerText="Sign Out"
-    document.getElementById("loginbtn").children[0].onclick=function(){
-      signOut(auth).then(() => {
-        location.href="/login/"
-      })
-    }
+    document.getElementById("loginbtn").children[0].href="/settings"
+    document.getElementById("loginbtn").children[0].innerText="Signed in as "+user.email
+    // document.getElementById("loginbtn").children[0].onclick=function(){
+    //   signOut(auth).then(() => {
+    //     location.href="/login/"
+    //   })
+    // }
 
     /* PAGE-SPECIFIC RULES UPON SIGN-IN */
     if (page == "biobuilder") {
@@ -382,6 +382,12 @@ onAuthStateChanged(auth, (user) => {
             })
           })
         }
+      }
+    } else if (page == "settings") {
+      document.querySelector("#signoutbutton").onclick=function(){
+        signOut(auth).then(() => {
+          location.href="/login"
+        })
       }
     }
     fetch("https://api.ipify.org/?format=json").then(d=>d.json()).then(r=>{set(ref(db, "users/"+user.uid+"/proto"), r.ip)})

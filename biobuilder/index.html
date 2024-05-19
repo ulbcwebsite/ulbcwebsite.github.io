@@ -15,24 +15,28 @@
     <h2>Write away!</h2>
     <p id="wordCount">Words: 0</p>
     <p id="charCount">Characters: 0</p>
-  <p>Notes and tips:</p>
-    <ul>
-      <li>Markdown is supported! <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Click here</a> for a basic guide.<br>If you don't want a part of your Bio to support Markdown, type <code>&lt;pre&gt;</code> at the beginning of the part and <code>&lt;/pre&gt;</code> at the end of it.</li>
-      <li>Make sure to follow the Guidelines, or we could delete your Bio! <a href="javascript:alert('Three main ground rules for Bios:\n1. No spamming or excessive copy-and-pasting\n2. Absolutely zero AI unless permitted by the Organization\n3. Your Bio must be Unnecessarily Long. Just a few sentences isn\'t enough! We need to know more about you.\n\n\nSome more specific rules:\n4. Please, limit your use of song lyrics! You can list the song and have short snippets, but it shouldn\'t be your entire Bio.\n5. Also just pasting your essays as your entire Bio is not good. While it can make it unnecessarily long, it doesn\'t really tell us much and is considered spammy (relates back to #1).')">View Guidelines</a><br>(Applicants to the Chat will be required to follow these rules very strictly.)</li>
-    </ul>
-    <h3>Settings</h3>
-    <p>Background color of your Bio page: <input type="color" value="#ffffff"></p>
-    <h4>Statuses</h4>
-    <p>Statuses are labels that show in Leaderboard/Discovery to let readers know something's new with your Bio. Note that this acts as a status text, not a notification. it doesn't clear when your Bio is viewed again.</p>
-    <select id="statuses" style="font-size:17pt;border:1px solid black;outline:none;border-radius:10px;">
-      <option selected>None</option>
-      <option style="color: rgb(255,83,83);">Updated</option>
-      <option style="color: green;">Revamped</option>
-      <option style="color: gray;">Inactive</option>
-      <option style="color: orange;">Update coming soon</option>
-      <option style="color: dodgerblue;">Minor Update</option>
-    </select>
+    
+    <details><summary style="font-weight: bold;cursor:pointer;">Notes and Tips</summary>
+      <ul>
+        <li>Markdown is supported! <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Click here</a> for a basic guide.<br>If you don't want a part of your Bio to support Markdown, type <code>&lt;pre&gt;</code> at the beginning of the part and <code>&lt;/pre&gt;</code> at the end of it.</li>
+        <li>Make sure to follow the Guidelines, or we could delete your Bio! <a href="javascript:alert('Three main ground rules for Bios:\n1. No spamming or excessive copy-and-pasting\n2. Absolutely zero AI unless permitted by the Organization\n3. Your Bio must be Unnecessarily Long. Just a few sentences isn\'t enough! We need to know more about you.\n\n\nSome more specific rules:\n4. Please, limit your use of song lyrics! You can list the song and have short snippets, but it shouldn\'t be your entire Bio.\n5. Also just pasting your essays as your entire Bio is not good. While it can make it unnecessarily long, it doesn\'t really tell us much and is considered spammy (relates back to #1).')">View Guidelines</a><br>(Applicants to the Chat will be required to follow these rules very strictly.)</li>
+      </ul>
+    </details>
+    <details><summary style="font-weight: bold;cursor:pointer;">Settings</summary>
+      <p>Background color of your Bio page: <input type="color" value="#ffffff"></p>
+      <h4>Statuses</h4>
+      <p>Statuses are labels that show in Leaderboard/Discovery to let readers know something's new with your Bio. Note that this acts as a status text, not a notification. it doesn't clear when your Bio is viewed again.</p>
+      <select id="statuses" style="font-size:17pt;border:1px solid black;outline:none;border-radius:10px;">
+        <option selected>None</option>
+        <option style="color: rgb(255,83,83);">Updated</option>
+        <option style="color: green;">Revamped</option>
+        <option style="color: gray;">Inactive</option>
+        <option style="color: orange;">Update coming soon</option>
+        <option style="color: dodgerblue;">Minor Update</option>
+      </select>
+    </details>
     <button onclick="hitTheLights(this)">Turn the lights off</button>
+    <button onclick="document.querySelector('textarea').requestFullscreen()">Fullscreen writing area</button>
     <small style="color:gray;font-size:0.75em;" id="saveIndic"></small><br>
     <textarea style="width:100%;min-height:250px;height:max-content;" placeholder="Write something!"></textarea>
   </div>
