@@ -146,6 +146,9 @@ switch (page) {
     }
     break
   case 'leaderboard':
+    document.querySelector('button').onclick=function(){
+      Array.from(document.querySelectorAll("ol a"))[Math.floor(Math.random()*Array.from(document.querySelectorAll("ol a")).length)].click()
+    }
     onValue(ref(db, "users"), (snapshot) => {
       console.log("SNAPSHOT:",snapshot.val())
       var testThingy=Object.entries(snapshot.val()).map(a=>a[1])
