@@ -27,7 +27,7 @@ const navigationElements = [
     link: "/leaderboard"
   },
   {
-    text: "Website Ideas",
+    text: "Contact Devs",
     link: "/website-ideas"
   },
   {
