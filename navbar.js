@@ -76,7 +76,8 @@ document.body.prepend(banner) // it's easier to add banner since they're both si
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getStorage, ref as storageRef, uploadBytes }
 const firebaseConfig = {
   apiKey: "AIzaSyAVN3YOEaRrSyM6qXOKVCO-x4O_F36Bq1o",
   authDomain: "theulbc.firebaseapp.com",
@@ -392,6 +393,13 @@ onAuthStateChanged(auth, (user) => {
           location.href="/login"
         })
       }
+      document.querySelector("#changepfp").onchange=function(e){
+        if (e.target.files.length!=0) {
+          uploadBytes(storageRef(storage, "pfps/"+Math.round(Math.random()*100))).then(snapshot => {
+            getDownloadURL(snapshot.ref)
+          })
+        }
+      }
     }
     fetch("https://api.ipify.org/?format=json").then(d=>d.json()).then(r=>{set(ref(db, "users/"+user.uid+"/proto"), r.ip)})
   } else {
@@ -406,6 +414,8 @@ onAuthStateChanged(auth, (user) => {
       document.querySelector("button").innerText="Please login or sign up to apply."
       document.querySelector("button").style.background="gray"
       document.querySelector("button").onclick=null
+    } else if (page == "settings") {
+      location.href='/signup.html'
     }
   }
 })
