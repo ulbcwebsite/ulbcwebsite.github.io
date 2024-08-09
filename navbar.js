@@ -77,7 +77,7 @@ document.body.prepend(banner) // it's easier to add banner since they're both si
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAVN3YOEaRrSyM6qXOKVCO-x4O_F36Bq1o",
   authDomain: "theulbc.firebaseapp.com",
@@ -100,6 +100,7 @@ function getPath(url) {
 }
 const page = getPath(location.href)[0]
 const db = getDatabase()
+const storage = getStorage()
 
 
 /* DEFINE CUSTOM FUNCTIONS FOR CERTAIN PAGES */
@@ -199,6 +200,8 @@ switch (page) {
           firstTimeLooking=false
           set(ref(db, "users/"+location.href.split("?")[1]+"/views"), (snapshot.val().views||0)+1)
         }
+        document.querySelector("img").style.display='inline'
+          document.querySelector("img").src=snapshot.val().pfp||"https://firebasestorage.googleapis.com/v0/b/theulbc.appspot.com/o/pfps%2F1?alt=media&token=8e2be77b-1b9e-4f86-84be-cca9ab29e71c"
         document.querySelector("h1").innerText=snapshot.val().email
         document.body.style.background=snapshot.val().bioBg||"white"
         document.querySelector("p#bio").innerHTML=snapshot.val().bio!=''?converter.makeHtml(snapshot.val().bio):"This user has not written a Bio yet. Encourage them to start!"
@@ -219,6 +222,19 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("signupbtn").style.display='none'
     document.getElementById("loginbtn").children[0].href="/settings"
     document.getElementById("loginbtn").children[0].innerText="Signed in as "+user.email
+    onValue(ref(db, "users/"+user.uid+"/darkMode"), (darkMode) => {
+      if (darkMode.val()==true) {
+        document.body.style.background='#121212'
+        document.body.style.color='lightgray'
+        setTimeout(function() {
+          document.querySelectorAll("ol>li>a").forEach(a=>a.style.color='dodgerblue')
+        },500)
+      } else {
+        document.body.style.background='white'
+        document.body.style.color='black'
+        document.querySelectorAll("ol>li>a").forEach(a=>a.style.color='blue')
+      }
+    })
     // document.getElementById("loginbtn").children[0].onclick=function(){
     //   signOut(auth).then(() => {
     //     location.href="/login/"
@@ -238,6 +254,9 @@ onAuthStateChanged(auth, (user) => {
             document.getElementById("saveIndic").innerText="Latest changes have been saved"
           })
         })
+      }
+      document.getElementById("viewBio").onclick=function(){
+        location.href='/profile/?'+user.uid
       }
       document.querySelector("#main input[type=color]").onchange=function(){
         set(ref(db, "users/"+user.uid+"/bioBg"), this.value)
@@ -388,15 +407,25 @@ onAuthStateChanged(auth, (user) => {
         }
       }
     } else if (page == "settings") {
+      document.querySelector("input[type=checkbox]").onchange=function(){
+        set(ref(db, "users/"+user.uid+"/darkMode"), document.querySelector("input[type=checkbox]").checked)
+      }
       document.querySelector("#signoutbutton").onclick=function(){
         signOut(auth).then(() => {
           location.href="/login"
         })
       }
+      onValue(ref(db, "users/"+user.uid+"/pfp"), (profilepic) => {
+        document.querySelector("img").src=profilepic.val()
+      })
       document.querySelector("#changepfp").onchange=function(e){
         if (e.target.files.length!=0) {
-          uploadBytes(storageRef(storage, "pfps/"+Math.round(Math.random()*100))).then(snapshot => {
-            getDownloadURL(snapshot.ref)
+          uploadBytes(storageRef(storage, "pfps/"+Math.round(Math.random()*100)), e.target.files[0]).then(snapshot => {
+            getDownloadURL(snapshot.ref).then(url => {
+              set(ref(db, "users/"+user.uid+"/pfp"), url).then(() => {
+                alert("Profile picture updated!")
+              })
+            })
           })
         }
       }
